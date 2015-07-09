@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 
-//***
+@Category(Smoke.class)
 public class TodosE2ETest extends TodosBaseTest {
-    @Category(Smoke.class)
+
     @Test
     public void testAtAllFilterOperations() {
 
