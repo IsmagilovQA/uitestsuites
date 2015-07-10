@@ -3,7 +3,6 @@ package core;
 import com.codeborne.selenide.Configuration;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import pages.ToDoMVCPage;
 
 import static com.codeborne.selenide.Selenide.open;
