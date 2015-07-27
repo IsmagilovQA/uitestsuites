@@ -89,7 +89,7 @@ public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
         page.add("t1", "t2");
         page.toggle("t2");
 
-        //Switch At Completed Filter
+        //Switch At Completedd Filter
         page.filterCompleted();
         page.assertVisibleTasks("t2");
         page.assertItemsLeftCounter(1);
