@@ -1,13 +1,14 @@
 package work81;
 
 
+import work81.categories.Old;
 import work81.categories.Smoke;
 import core.TodosBaseTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 
-@Category(Smoke.class)
+@Category(Old.class)
 public class TodosE2ETest extends TodosBaseTest {
 
     @Test

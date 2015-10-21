@@ -130,6 +130,14 @@
             </properties>
         </profile>
 
+        <profile>
+            <id>old</id>
+            <properties>
+                <test.includeCategories>work81.categories.Old</test.includeCategories>
+                <test.excludeCategories></test.excludeCategories>
+            </properties>
+        </profile>
+
     </profiles>
 
     <reporting>

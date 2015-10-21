@@ -5,8 +5,9 @@ import work81.categories.Buggy;
 import core.TodosBaseTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import work81.categories.Old;
 
-@Category(All.class)
+@Category(Old.class)
 public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
     @Test
     public void testAdd(){
@@ -100,7 +101,6 @@ public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
         page.assertItemsLeftCounter(1);
     }
 
-    @Category(Buggy.class)
     @Test
     public void testWithBug(){
         page.add("t1", "t2");

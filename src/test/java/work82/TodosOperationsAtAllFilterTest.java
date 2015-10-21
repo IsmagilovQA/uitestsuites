@@ -68,7 +68,7 @@ public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
     }
 
 
-    
+
     @Category(Buggy.class)
     @Test
     public void testWithBug(){
