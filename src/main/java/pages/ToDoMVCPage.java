@@ -15,11 +15,11 @@ public class ToDoMVCPage {
     ElementsCollection tasks = $$("#todo-list>li");
     SelenideElement clearCompleted = $("#clear-completed");
 
-    public void openToDoMVC(){ open("http://todomvc.com/examples/troopjs_require/#"); }
+    public void openToDoMVC(){ open("https://todomvc4tasj.herokuapp.com/"); }
 
     public void clearData() {
         executeJavaScript("localStorage.clear()");
-        open("http://todomvc.com");
+        //open("http://todomvc.com");
     }
 
     public void add(String... taskTexts) {

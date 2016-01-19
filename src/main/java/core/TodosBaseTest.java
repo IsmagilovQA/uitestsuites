@@ -11,9 +11,9 @@ import static com.codeborne.selenide.Selenide.open;
 public class TodosBaseTest {
     public ToDoMVCPage page = new ToDoMVCPage();
 
-   {
-       Configuration.browser = System.getProperty("driver.browser");
-   }
+//   {
+//       Configuration.browser = System.getProperty("driver.browser");
+//   }
 
     @Before
     public void openToDoMVCBeforeTest() { page.openToDoMVC(); }
