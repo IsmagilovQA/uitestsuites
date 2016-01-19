@@ -24,7 +24,6 @@ public class TodosE2ETest extends TodosBaseTest {
         page.assertTasks("t1", "t2", "t3", "t4");
         page.assertItemsLeftCounter(0);
 
-        
         //reopen all
         page.toggleAll();
         page.assertTasks("t1", "t2", "t3", "t4");
