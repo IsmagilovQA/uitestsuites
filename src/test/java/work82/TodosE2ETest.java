@@ -10,6 +10,7 @@ import work81.categories.Smoke;
 @Category(Smoke.class)
 public class TodosE2ETest extends TodosBaseTest {
 
+    
     @Test
     public void testTasksLifeCycleAndFiltering() {
 
