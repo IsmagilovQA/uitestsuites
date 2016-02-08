@@ -1,4 +1,4 @@
-package work_with_native_todoMVC.pages;
+package pages;
 
 import com.codeborne.selenide.Configuration;
 

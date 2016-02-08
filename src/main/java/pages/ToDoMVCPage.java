@@ -1,96 +1,147 @@
 package pages;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import pages.Preconditions;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.CollectionCondition.empty;
+import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.hasWebDriverStarted;
+import static com.codeborne.selenide.WebDriverRunner.url;
+import static pages.Preconditions.*;
 
 public class ToDoMVCPage {
 
-    public ElementsCollection tasks = $$("#todo-list>li");
-    SelenideElement clearCompleted = $("#clear-completed");
-
-    public void openToDoMVC(){ open("https://todomvc4tasj.herokuapp.com/"); }
-
-    public void clearData() {
-        executeJavaScript("localStorage.clear()");
-        //open("http://todomvc.com");
-    }
+    public static ElementsCollection tasks = $$(".todo-list>li");
+    public static SelenideElement clearCompleted = $(".clear-completed");
+    public static SelenideElement newTask = $(".new-todo");
 
     @Step
-    public void add(String... taskTexts) {
+    public static void add(String... taskTexts) {
         for (String text:taskTexts) {
-            $("#new-todo").setValue(text).pressEnter();
+            newTask.setValue(text).pressEnter();
         }
     }
 
     @Step
-    public void delete(String taskText) {
+    public static void delete(String taskText) {
         tasks.find(exactText(taskText)).hover().find(".destroy").shouldBe(visible).click();
     }
 
     @Step
-    public void toggle(String taskText) {
+    public static void toggle(String taskText) {
         tasks.find(exactText(taskText)).find(".toggle").click();
     }
 
     @Step
-    public void clearCompleted() {
+    public static void clearCompleted() {
         clearCompleted.click();
         clearCompleted.shouldBe(hidden);
     }
 
     @Step
-    public void toggleAll() {
-        $("#toggle-all").click();
+    public static void toggleAll() {
+        $(".toggle-all").click();
     }
 
     @Step
-    public void filterAll() {
+    public static void filterAll() {
         $(By.linkText("All")).click();
     }
 
 
     @Step
-    public void filterActive() {
+    public static void filterActive() {
         $(By.linkText("Active")).click();
     }
 
     @Step
-    public void filterCompleted() {
+    public static void filterCompleted() {
         $(By.linkText("Completed")).click();
     }
 
+
     @Step
-    public void edit(String oldTaskText, String newTaskText) {
-        tasks.find(exactText(oldTaskText)).find(".view label").doubleClick();
-        tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText).pressEnter();
+    public static void dumpInputs() {
+        System.out.println("DUMP Inputs ");
+        for (SelenideElement sss:$$(".todo-list .edit")) //input
+            System.out.println(sss.parent().toString()+" - "+sss.parent().getText()+" - "+sss.toString()+" - "+sss.getText()+" - "+(sss.isDisplayed() ? "visible" : "invisible"));
+        System.out.println("");
     }
 
-    public void assertVisibleTasksAreEmpty() {
+    @Step
+    public static void edit(String oldTaskText, String newTaskText) {
+        //dumpInputs();
+        tasks.find(exactText(oldTaskText)).find("label").doubleClick();
+        //dumpInputs();
+        tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
+        //dumpInputs();
+        //tasks.find(cssClass("editing")).find(".edit").pressEnter();
+        //dumpInputs();
+    }
+
+    public static void assertVisibleTasksAreEmpty() {
         tasks.filterBy(visible).shouldBe(empty);
     }
 
-    public void assertTasksAreEmpty(){
+    public static void assertTasksAreEmpty(){
         tasks.shouldBe(empty);
     }
 
-    public void assertItemsLeftCounter(int countTasks) {
-        $("#todo-count>strong").shouldHave(exactText(Integer.toString(countTasks)));
+    public static void assertItemsLeft(int countTasks) {
+        $(".todo-count>strong").shouldHave(exactText(Integer.toString(countTasks)));
     }
 
-    public void assertTasks(String... taskTexts) {
+    public static void assertTasks(String... taskTexts) {
         tasks.shouldHave(exactTexts(taskTexts));
     }
 
-    public void assertVisibleTasks(String... taskTexts) {
+    public static void assertVisibleTasks(String... taskTexts) {
         tasks.filterBy(visible).shouldHave(exactTexts(taskTexts));
+    }
+
+
+    public static void givenAtAll(Preconditions.Task... tasks) {
+        givenAt(Preconditions.Filter.ALL, tasks);
+    }
+
+    public static void givenAtActive(Task... tasks) {
+        givenAt(Filter.ACTIVE, tasks);
+    }
+
+    public static void givenAtCompleted(Task... tasks) {
+        givenAt(Filter.COMPLETED, tasks);
+    }
+
+    public static void givenAtAll(Status status, String... names) {
+        givenAt(Filter.ALL, Task.aTasks(status, names));
+    }
+
+    public static void givenAtActive(Status status, String... names) {
+        givenAt(Filter.ACTIVE, Task.aTasks(status, names));
+    }
+
+    public static void givenAtCompleted(Status status, String... names) {
+        givenAt(Filter.COMPLETED, Task.aTasks(status, names));
+    }
+
+    private static void givenAt(Filter filter, Task... tasks) {
+        if(!hasWebDriverStarted()) {
+            Configuration.browser = System.getProperty("driver.browser");
+        }
+
+        if (!url().equals(filter.url())) {
+            open(filter.url());
+        }
+        Storage.build(tasks);
+        executeJavaScript("location.reload()");
+
+        newTask.shouldBe(enabled);
     }
 
 }

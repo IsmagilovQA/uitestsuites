@@ -2,9 +2,13 @@ package work_with_native_todoMVC;
 
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import work_with_native_todoMVC.categories.Smoke;
 
-import static work_with_native_todoMVC.pages.ToDoMVCPage.*;
 
+import static pages.ToDoMVCPage.*;
+
+@Category(Smoke.class)
 public class TodosE2ETest extends TodosBaseTest {
 
     @Test

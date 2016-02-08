@@ -102,7 +102,7 @@
         <profile>
             <id>smoke</id>
             <properties>
-                <test.includeCategories>work81.categories.Smoke</test.includeCategories>
+                <test.includeCategories>work_with_native_todoMVC.categories.Smoke</test.includeCategories>
                 <test.excludeCategories></test.excludeCategories>
             </properties>
         </profile>
@@ -110,15 +110,15 @@
         <profile>
             <id>fullAcceptance</id>
             <properties>
-                <test.includeCategories>work81.categories.All</test.includeCategories>
-                <test.excludeCategories>work81.categories.Buggy</test.excludeCategories>
+                <test.includeCategories></test.includeCategories>
+                <test.excludeCategories>work_with_native_todoMVC.categories.Buggy</test.excludeCategories>
             </properties>
         </profile>
 
         <profile>
             <id>all</id>
             <properties>
-                <test.includeCategories>work81.categories.All</test.includeCategories>
+                <test.includeCategories></test.includeCategories>
                 <test.excludeCategories></test.excludeCategories>
             </properties>
         </profile>
@@ -126,15 +126,7 @@
         <profile>
             <id>buggy</id>
             <properties>
-                <test.includeCategories>work81.categories.Buggy</test.includeCategories>
-                <test.excludeCategories></test.excludeCategories>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>old</id>
-            <properties>
-                <test.includeCategories>work81.categories.Old</test.includeCategories>
+                <test.includeCategories>work_with_native_todoMVC.categories.Buggy</test.includeCategories>
                 <test.excludeCategories></test.excludeCategories>
             </properties>
         </profile>

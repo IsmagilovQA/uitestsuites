@@ -1,16 +1,27 @@
 package work_with_native_todoMVC;
 
-import com.codeborne.selenide.Condition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import work_with_native_todoMVC.categories.Buggy;
 
-import static work_with_native_todoMVC.pages.Preconditions.*;
+import static pages.Preconditions.*;
 
-import static com.codeborne.selenide.CollectionCondition.texts;
-import static work_with_native_todoMVC.pages.Preconditions.Task.aTask;
-import static work_with_native_todoMVC.pages.ToDoMVCPage.*;
-
+import static pages.Preconditions.Task.aTask;
+import static pages.ToDoMVCPage.*;
 
 public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
+
+    @Category(Buggy.class)
+    @Test
+    public void testAddWithBug(){
+
+        givenAtAll();
+
+        add("t1", "t2");
+        assertTasks("t1", "t2");
+        assertItemsLeft(0);
+    }
+
     @Test
     public void testAdd(){
 
