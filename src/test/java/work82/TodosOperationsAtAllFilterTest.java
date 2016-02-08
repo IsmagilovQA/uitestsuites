@@ -1,10 +1,13 @@
 package work82;
 
+import com.codeborne.selenide.Condition;
 import core.TodosBaseTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import work81.categories.All;
 import work81.categories.Buggy;
+
+import static com.codeborne.selenide.CollectionCondition.texts;
 
 @Category(All.class)
 public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
@@ -74,5 +77,11 @@ public class TodosOperationsAtAllFilterTest extends TodosBaseTest {
     public void testWithBug(){
         page.add("t1", "t2");
         page.assertTasks("t1");
+    }
+
+    @Test
+    public void test() {
+        page.add("1");
+        page.tasks.filter(Condition.cssClass("active")).shouldHave(texts("1"));
     }
 }

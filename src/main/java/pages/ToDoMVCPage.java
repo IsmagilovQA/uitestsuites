@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ToDoMVCPage {
 
-    ElementsCollection tasks = $$("#todo-list>li");
+    public ElementsCollection tasks = $$("#todo-list>li");
     SelenideElement clearCompleted = $("#clear-completed");
 
     public void openToDoMVC(){ open("https://todomvc4tasj.herokuapp.com/"); }

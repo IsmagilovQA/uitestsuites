@@ -72,7 +72,8 @@
                     </properties>
 
                     <systemPropertyVariables>
-                        <webdriver.chrome.driver>C://Program Files (x86)//chromedriver_win32//chromedriver.exe</webdriver.chrome.driver>
+                        <webdriver.chrome.driver>E://julia//QA//Install//chromeDriver//chromedriver_win32//chromedriver.exe</webdriver.chrome.driver>
+                        <!--C://Program Files (x86)//chromedriver_win32//chromedriver.exe-->
                         <driver.browser>${driver.browser}</driver.browser>
                     </systemPropertyVariables>
 
