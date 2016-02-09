@@ -3,8 +3,8 @@ package pages;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import core.SelenideElementWithAdditionalLogic;
 import org.openqa.selenium.By;
-import pages.Preconditions;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.CollectionCondition.empty;
@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.hasWebDriverStarted;
 import static com.codeborne.selenide.WebDriverRunner.url;
+import static core.AdditionalSelenideAPI.$_;
 import static pages.Preconditions.*;
 
 public class ToDoMVCPage {
@@ -79,9 +80,10 @@ public class ToDoMVCPage {
         //dumpInputs();
         tasks.find(exactText(oldTaskText)).find("label").doubleClick();
         //dumpInputs();
-        tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
+        SelenideElementWithAdditionalLogic taskInput = $_(By.xpath("//input[contains(@class, 'edit')][parent::*[contains(@class, 'editing')]][ancestor::*[contains(@class, 'todo-list')]]"));
+        taskInput.setValueWithoutChangeEvent(newTaskText);
         //dumpInputs();
-        //tasks.find(cssClass("editing")).find(".edit").pressEnter();
+        taskInput.pressEnterWithChangeEvent();
         //dumpInputs();
     }
 
