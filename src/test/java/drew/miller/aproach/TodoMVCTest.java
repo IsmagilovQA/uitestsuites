@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
+import pages.ToDoMVC;
 import static pages.ToDoMVC.*;
 import static pages.Givens.*;
 import static pages.Givens.TaskType.*;
@@ -15,31 +16,54 @@ import static pages.Givens.TaskType.*;
 public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
 
     public class AtActiveFilter {
-        @Test
-        public void testAdd() {
-            givenAtActive(COMPLETED, "a");
+        public class CRUD {
+            @Test
+            public void add() {
+                givenAtActive(COMPLETED, "a");
 
-            add("b");
-            assertVisibleTasks("b");
-            assertItemsLeft(1);
-        }
+                ToDoMVC.add("b");
+                assertVisibleTasks("b");
+                assertItemsLeft(1);
+            }
 
-        @Test
-        public void testEdit() {
-            givenAtActive(ACTIVE, "a", "b");
+            public class EditOperations {
+                @Test
+                public void edit() {
+                    givenAtActive(ACTIVE, "a", "b");
 
-            edit("a", "a edited");
-            assertTasks("a edited", "b");
-            assertItemsLeft(2);
-        }
+                    ToDoMVC.edit("a", "a edited");
+                    assertTasks("a edited", "b");
+                    assertItemsLeft(2);
+                }
 
-        @Test
-        public void testCancelEdit() {
-            given(ACTIVE, "a");
+                @Test
+                public void cancelEdit() {
+                    given(ACTIVE, "a");
 
-            cancelEdit("a", "a edit cancelled");
-            assertTasks("a");
-            assertItemsLeft(1);
+                    ToDoMVC.cancelEdit("a", "a edit cancelled");
+                    assertTasks("a");
+                    assertItemsLeft(1);
+                }
+
+                @Test
+                public void confirmEditByTab() {
+                    givenAtActive(ACTIVE, "a", "b");
+
+                    startEdit("a", "a edited").pressTab();
+                    assertTasks("a edited", "b");
+                    assertItemsLeft(2);
+                }
+
+            }
+
+            @Test
+            public void delete() {
+                givenAtActive(ACTIVE, "a", "b");
+
+                ToDoMVC.delete("b");
+                ToDoMVC.assertTasks("a");
+                ToDoMVC.assertItemsLeft(1);
+            }
         }
 
         @Test
@@ -49,24 +73,6 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
             toggle("a");
             assertVisibleTasks("b");
             assertItemsLeft(1);
-        }
-
-        @Test
-        public void testDelete() {
-            givenAtActive(ACTIVE, "a", "b");
-
-            delete("b");
-            assertTasks("a");
-            assertItemsLeft(1);
-        }
-
-        @Test
-        public void testConfirmByTab() {
-            givenAtActive(ACTIVE, "a", "b");
-
-            startEdit("a", "a edited").pressTab();
-            assertTasks("a edited", "b");
-            assertItemsLeft(2);
         }
 
         @Test
