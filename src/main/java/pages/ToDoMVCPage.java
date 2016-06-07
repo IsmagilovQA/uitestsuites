@@ -77,14 +77,17 @@ public class ToDoMVCPage {
 
     @Step
     public static void edit(String oldTaskText, String newTaskText) {
-        //dumpInputs();
-        tasks.find(exactText(oldTaskText)).find("label").doubleClick();
-        //dumpInputs();
-        SelenideElementWithAdditionalLogic taskInput = $_(By.xpath("//input[contains(@class, 'edit')][parent::*[contains(@class, 'editing')]][ancestor::*[contains(@class, 'todo-list')]]"));
-        taskInput.setValueWithoutChangeEvent(newTaskText);
-        //dumpInputs();
-        taskInput.pressEnterWithChangeEvent();
-        //dumpInputs();
+//        //dumpInputs();
+//        tasks.find(exactText(oldTaskText)).find("label").doubleClick();
+//        //dumpInputs();
+//        SelenideElementWithAdditionalLogic taskInput = $_(By.xpath("//input[contains(@class, 'edit')][parent::*[contains(@class, 'editing')]][ancestor::*[contains(@class, 'todo-list')]]"));
+//        taskInput.setValueWithoutChangeEvent(newTaskText);
+//        //dumpInputs();
+//        taskInput.pressEnterWithChangeEvent();
+//        //dumpInputs();
+
+        tasks.find(exactText(oldTaskText)).doubleClick();
+        tasks.find(cssClass("active")).find(".edit").setValue(newTaskText).pressEnter();
     }
 
     public static void assertVisibleTasksAreEmpty() {

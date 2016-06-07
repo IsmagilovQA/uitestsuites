@@ -6,6 +6,7 @@ import com.codeborne.selenide.commands.SelectOptionByValue;
 import com.codeborne.selenide.commands.SelectRadio;
 import com.codeborne.selenide.ex.InvalidStateException;
 import com.codeborne.selenide.impl.WebElementSource;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Configuration.fastSetValue;

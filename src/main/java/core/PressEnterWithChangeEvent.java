@@ -14,14 +14,12 @@ import java.io.IOException;
 public class PressEnterWithChangeEvent implements Command<SelenideElementWithAdditionalLogic> {
     public SelenideElementWithAdditionalLogic execute(SelenideElement proxy, WebElementSource locator, Object[] args) {
 
-        WebElement element = locator.findAndAssertElementIsVisible();
-
         if (fastSetValue)
-            events.fireEvent(element, "focus", "keydown", "keypress", "input", "keyup", "change");
+            events.fireEvent(locator.findAndAssertElementIsVisible(), "focus", "keydown", "keypress", "input", "keyup", "change");
         else
-            events.fireChangeEvent(element);
+            events.fireChangeEvent(locator.findAndAssertElementIsVisible());
 
-        element.sendKeys(new CharSequence[]{Keys.ENTER});
+        locator.findAndAssertElementIsVisible().sendKeys(new CharSequence[]{Keys.ENTER});
         return (SelenideElementWithAdditionalLogic) proxy;
     }
 }
