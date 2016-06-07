@@ -1,16 +1,22 @@
-package work_with_native_todoMVC;
+package drew.miller.aproach;
 
+import com.nitorcreations.junit.runners.NestedRunner;
+import drew.miller.aproach.categories.Buggy;
+import drew.miller.aproach.categories.Smoke;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 
 import static pages.ToDoMVC.*;
 import static pages.Givens.*;
 import static pages.Givens.TaskType.*;
 
+@RunWith(NestedRunner.class)
 public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
 
-    public class AtActiveFilterTest {
+    public class AtActiveFilter {
         @Test
-        public void testAddAtActive() {
+        public void testAdd() {
             givenAtActive(COMPLETED, "a");
 
             add("b");
@@ -19,7 +25,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testEditAtActive() {
+        public void testEdit() {
             givenAtActive(ACTIVE, "a", "b");
 
             edit("a", "a edited");
@@ -28,7 +34,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testCancelEditAtActive() {
+        public void testCancelEdit() {
             given(ACTIVE, "a");
 
             cancelEdit("a", "a edit cancelled");
@@ -37,7 +43,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testCompleteAtActive() {
+        public void testComplete() {
             givenAtActive(ACTIVE, "a", "b");
 
             toggle("a");
@@ -46,7 +52,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testDeleteAtActive() {
+        public void testDelete() {
             givenAtActive(ACTIVE, "a", "b");
 
             delete("b");
@@ -55,7 +61,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testConfirmByTabAtActive() {
+        public void testConfirmByTab() {
             givenAtActive(ACTIVE, "a", "b");
 
             startEdit("a", "a edited").pressTab();
@@ -64,7 +70,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testSwitchFromActiveToAll() {
+        public void testSwitchToAll() {
             givenAtActive(
                     aTask(ACTIVE, "a"),
                     aTask(COMPLETED, "b")
@@ -76,9 +82,9 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
     }
 
-    public class AtAllFilterTest {
+    public class AtAllFilter {
         @Test
-        public void testEditAtAll() {
+        public void testEdit() {
             given(ACTIVE, "a");
 
             edit("a", "a edited");
@@ -87,7 +93,17 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testReopenAtAll() {
+        public void testReopen() {
+            given(COMPLETED, "a", "b");
+
+            toggle("b");
+            assertTasks("a", "b");
+            assertItemsLeft(1);
+        }
+
+        @Category(Buggy.class)
+        @Test
+        public void testReopen1() {
             given(COMPLETED, "a", "b");
 
             toggle("b");
@@ -96,7 +112,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testCompleteAllAtAll() {
+        public void testCompleteAll() {
             given(
                     aTask(ACTIVE, "a"),
                     aTask(ACTIVE, "b"),
@@ -109,7 +125,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testReopenAllAtAll() {
+        public void testReopenAll() {
             given(COMPLETED, "a", "b");
 
             toggleAll();
@@ -118,7 +134,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testClearCompletedAtAll() {
+        public void testClearCompleted() {
             given(
                     aTask(ACTIVE, "a"),
                     aTask(COMPLETED, "b")
@@ -129,8 +145,9 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
             assertItemsLeft(1);
         }
 
+        @Category(Smoke.class)
         @Test
-        public void testCancelEditAtAll() {
+        public void testCancelEdit() {
             given(ACTIVE, "a", "b");
 
             cancelEdit("a", "a edit cancelled");
@@ -139,7 +156,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testDeleteByRemovingTextAtAll() {
+        public void testDeleteByRemovingText() {
             given(ACTIVE, "a", "b");
 
             edit("b", "");
@@ -148,7 +165,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testSwitchFromAllToCompleted() {
+        public void testSwitchToCompleted() {
             given(
                     aTask(ACTIVE, "a"),
                     aTask(COMPLETED, "b")
@@ -160,7 +177,8 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
     }
 
-    public class IntegrationTest {
+    public class Integration {
+        @Category(Smoke.class)
         @Test
         public void testTasksCommonFlow() {
             given();
@@ -188,9 +206,9 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
     }
 
-    public class AtCompletedFilterTest {
+    public class AtCompletedFilter {
         @Test
-        public void testAddAtCompleted() {
+        public void testAdd() {
             givenAtCompleted(COMPLETED, "a");
 
             add("b");
@@ -199,7 +217,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testEditAtCompleted() {
+        public void testEdit() {
             givenAtCompleted(COMPLETED, "a", "b");
 
             edit("b", "b edited");
@@ -208,7 +226,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testDeleteAtCompleted() {
+        public void testDelete() {
             givenAtCompleted(
                     aTask(COMPLETED, "a"),
                     aTask(ACTIVE, "b")
@@ -220,7 +238,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testCompleteAllAtCompleted() {
+        public void testCompleteAll() {
             givenAtCompleted(ACTIVE, "a", "b");
 
             toggleAll();
@@ -229,7 +247,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testCancelEditAtCompleted() {
+        public void testCancelEdit() {
             givenAtCompleted(COMPLETED, "a");
 
             cancelEdit("a", "a edit cancelled");
@@ -238,7 +256,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testReopenAllAtCompleted() {
+        public void testReopenAll() {
             givenAtCompleted(COMPLETED, "a", "b");
 
             toggleAll();
@@ -247,7 +265,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testClearCompletedAtCompleted() {
+        public void testClearCompleted() {
             givenAtCompleted(
                     aTask(ACTIVE, "b"),
                     aTask(COMPLETED, "a")
@@ -258,19 +276,9 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
             assertItemsLeft(1);
         }
 
-        @Test
-        public void testFromAllToCompleted() {
-            given(
-                    aTask(ACTIVE, "a"),
-                    aTask(COMPLETED, "b")
-            );
-
-            switchToCompleted();
-            assertVisibleTasks("b");
-        }
 
         @Test
-        public void testConfirmByClickOutsideAtCompleted() {
+        public void testConfirmByClickOutside() {
             givenAtCompleted(
                     aTask(COMPLETED, "a"),
                     aTask(ACTIVE, "b")
@@ -282,7 +290,7 @@ public class TodoMVCTest extends ScreenshotMakerAfterEachTest {
         }
 
         @Test
-        public void testSwitchFromCompletedToActive() {
+        public void testSwitchToActive() {
             givenAtCompleted(
                     aTask(COMPLETED, "a"),
                     aTask(ACTIVE, "b")

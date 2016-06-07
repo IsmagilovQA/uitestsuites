@@ -1,3 +1,3 @@
-package work_with_native_todoMVC.categories;
+package drew.miller.aproach.categories;
 
 public interface Buggy { /*junit category*/ }

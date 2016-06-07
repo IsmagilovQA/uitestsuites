@@ -31,6 +31,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.nitorcreations</groupId>
+            <artifactId>junit-runners</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-junit-adaptor</artifactId>
             <version>${allure.version}</version>
@@ -102,7 +109,7 @@
         <profile>
             <id>smoke</id>
             <properties>
-                <test.includeCategories>work_with_native_todoMVC.categories.Smoke</test.includeCategories>
+                <test.includeCategories>Smoke</test.includeCategories>
                 <test.excludeCategories></test.excludeCategories>
             </properties>
         </profile>
@@ -111,7 +118,7 @@
             <id>fullAcceptance</id>
             <properties>
                 <test.includeCategories></test.includeCategories>
-                <test.excludeCategories>work_with_native_todoMVC.categories.Buggy</test.excludeCategories>
+                <test.excludeCategories>Buggy</test.excludeCategories>
             </properties>
         </profile>
 
@@ -126,7 +133,7 @@
         <profile>
             <id>buggy</id>
             <properties>
-                <test.includeCategories>work_with_native_todoMVC.categories.Buggy</test.includeCategories>
+                <test.includeCategories>Buggy</test.includeCategories>
                 <test.excludeCategories></test.excludeCategories>
             </properties>
         </profile>

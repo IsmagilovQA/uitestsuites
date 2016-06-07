@@ -1,4 +1,4 @@
-package work_with_native_todoMVC;
+package drew.miller.aproach;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Screenshots;

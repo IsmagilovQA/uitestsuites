@@ -1,6 +1,8 @@
 package pages;
 
 
+import ru.yandex.qatools.allure.annotations.Step;
+
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.refresh;
 import static com.codeborne.selenide.Selenide.open;
@@ -10,7 +12,7 @@ public class Givens {
 
     private static String appURL = "https://todomvc4tasj.herokuapp.com/";
 
-
+    @Step
     public static void given(Task... tasks) {
         ensureUrlCorrect();
         String js = buildJsString(tasks);
@@ -18,24 +20,28 @@ public class Givens {
         refresh();
     }
 
+    @Step
     public static void given(TaskType taskType, String... taskTexts) {
         given(aTasks(taskType, taskTexts));
     }
 
-
+    @Step
     public static void givenAtActive(TaskType taskType, String... taskTexts) {
         givenAtActive(aTasks(taskType, taskTexts));
     }
 
+    @Step
     public static void givenAtActive(Task...tasks) {
         given(tasks);
         open(appURL + "#/active");
     }
 
+    @Step
     public static void givenAtCompleted(TaskType taskType, String... taskTexts) {
         givenAtCompleted(aTasks(taskType, taskTexts));
     }
 
+    @Step
     public static void givenAtCompleted(Task... tasks) {
         given(tasks);
         open(appURL + "#/completed");
