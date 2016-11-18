@@ -1,9 +1,7 @@
 package com.automician;
 
 import com.automician.testconfigs.BaseTest;
-import com.automician.categories.Smoke;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import static pages.ToDoMVC.*;
 
