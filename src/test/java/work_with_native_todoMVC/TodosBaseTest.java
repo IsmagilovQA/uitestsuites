@@ -12,6 +12,4 @@ public class TodosBaseTest {
         Configuration.fastSetValue = true;
         AdditionalSelenideAPI.setUp();
     }
-
-
 }
